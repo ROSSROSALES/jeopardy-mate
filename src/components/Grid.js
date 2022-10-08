@@ -1,35 +1,33 @@
 import QuestionBlock from './QuestionBlock'
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 
 
 const Grid = (props) => {
-  const [board, setBoard] = useState([])
-  let row = []
-  let s = 100
-  for (let j = 0; j < 5; j++ ){
+  const [board, setBoard] = useState();
+  // TODO add variable to update number of rows wanted by user
+  
+  const dynamic_board = [];
+  let row = [];
+  let s = 100;
+  // i = row of questions
+  // j = number of rows
+  for (let j = 0; j < 5; j++) {
     for (let i = 0; i < 5; i++) {
       row.push(<QuestionBlock score ={s}/>)
     }
-    board.push(row)
+    dynamic_board.push(row)
     row = []
     s += 100
   }
+  useEffect(() => {
+    setBoard(dynamic_board);
+  }, []);
 
   return (
     <div className = "container question-board">
-        {board[0]}
-
-        {board[1]}
-
-        {board[2]}
-
-        {board[3]}
-
-        {board[4]}
-
-        
+        {board}
     </div>
   )
 }
 
-export default Grid
+export default Grid;
